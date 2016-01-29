@@ -32,3 +32,6 @@ RUN tlmgr install latexmk
 
 # Install Aspell
 RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
+
+# Keep env while using sudo inside the docker
+RUN sed -i /secure_path/d /etc/sudoers
