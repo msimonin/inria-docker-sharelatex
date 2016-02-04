@@ -29,6 +29,8 @@ RUN rm -r /install-tl-unx; \
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/texlive/2015/bin/x86_64-linux/
 RUN tlmgr install latexmk
 
+# Put paranoid mode
+RUN echo "openin_any = p" >> /usr/local/texlive/2015/texmf.cnf
 
 # Install Aspell
 RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
