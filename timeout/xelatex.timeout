@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# timeout for the compilation in minute
-TIMEOUT=${SHARELATEX_COMPILATION_TIMEOUT:-1}
+# timeout for the compilation in second
+TIMEOUT=${SHARELATEX_COMPILATION_TIMEOUT:-60}
 
 timeout ${TIMEOUT}m /usr/local/texlive/2015/bin/x86_64-linux/timeout/xelatex "$@"
 lastresult=$?
@@ -9,7 +9,7 @@ if [ $lastresult -eq 124 ]
 then
    # we double the timeout and stop on the last error
    TIMEOUT=$((TIMEOUT * 2))
-   timeout ${TIMEOUT} /usr/local/texlive/2015/bin/x86_64-linux/timeout/xelatex -halt-on-error "$@"
+   timeout ${TIMEOUT}s /usr/local/texlive/2015/bin/x86_64-linux/timeout/xelatex -halt-on-error "$@"
 else
    exit $lastresult
 fi
