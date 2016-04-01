@@ -39,3 +39,14 @@ RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
 
 # Keep env while using sudo inside the docker
 RUN sed -i /secure_path/d /etc/sudoers
+
+# Install timeout scripts in the texlive distribution
+WORKDIR /usr/local/texlive/2015/bin/x86_64-linux
+COPY timeout timeout
+RUN rm pdflatex
+RUN rm xelatex
+RUN ln -s timeout/pdflatex.timeout pdflatex
+RUN ln -s timeout/xelatex.timeout xelatex
+WORKDIR timeout
+RUN ln -s ../pdftex pdflatex
+RUN ln -s ../xetex xelatex
