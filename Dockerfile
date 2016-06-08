@@ -28,25 +28,14 @@ RUN rm -r /install-tl-unx; \
 
 
 # The path will persist.
-ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/texlive/2015/bin/x86_64-linux/
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/texlive/2016/bin/x86_64-linux/
 RUN tlmgr install latexmk
 
 # Put paranoid mode
-RUN echo "openin_any = p" >> /usr/local/texlive/2015/texmf.cnf
+RUN echo "openin_any = p" >> /usr/local/texlive/2016/texmf.cnf
 
 # Install Aspell
 RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
 
 # Keep env while using sudo inside the docker
 RUN sed -i /secure_path/d /etc/sudoers
-
-# Install timeout scripts in the texlive distribution
-WORKDIR /usr/local/texlive/2015/bin/x86_64-linux
-COPY timeout timeout
-RUN rm pdflatex
-RUN rm xelatex
-RUN ln -s timeout/pdflatex.timeout pdflatex
-RUN ln -s timeout/xelatex.timeout xelatex
-WORKDIR timeout
-RUN ln -s ../pdftex pdflatex
-RUN ln -s ../xetex xelatex
