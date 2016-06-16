@@ -12,7 +12,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   wget\
   sudo\
   perl\
-  python-pygments
+  python-pygments\
+  libfontconfig # required by xelatex
 
 # Install TexLive
 RUN apt-get install -y wget
@@ -39,3 +40,4 @@ RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
 
 # Keep env while using sudo inside the docker
 RUN sed -i /secure_path/d /etc/sudoers
+
