@@ -33,7 +33,11 @@ ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local
 RUN tlmgr install latexmk
 
 # Install Aspell
-RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
+RUN apt-get install -y aspell aspell-en aspell-fr aspell-es 
+
+# ghostscript is used for instance when eps are included in source
+# it will convert them to pdf
+RUN apt-get install -y ghostscript
 
 # Keep env while using sudo inside the docker
 RUN sed -i /secure_path/d /etc/sudoers
