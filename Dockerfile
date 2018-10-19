@@ -21,8 +21,8 @@ RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz; \
   mkdir /install-tl-unx; \
   tar -xvf install-tl-unx.tar.gz -C /install-tl-unx --strip-components=1
 
-RUN echo "selected_scheme scheme-full" > /install-tl-unx/texlive.profile; 
-RUN echo "option_doc 0" >> /install-tl-unx/texlive.profile; 
+RUN echo "selected_scheme scheme-full" > /install-tl-unx/texlive.profile;
+RUN echo "option_doc 0" >> /install-tl-unx/texlive.profile;
 RUN /install-tl-unx/install-tl -profile /install-tl-unx/texlive.profile
 RUN rm -r /install-tl-unx; \
   rm install-tl-unx.tar.gz
@@ -33,11 +33,17 @@ ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local
 RUN tlmgr install latexmk
 
 # Install Aspell
-RUN apt-get install -y aspell aspell-en aspell-fr aspell-es 
+RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
 
 # ghostscript is used for instance when eps are included in source
 # it will convert them to pdf
 RUN apt-get install -y ghostscript
+
+## Install dot2tex
+RUN apt-get install -y python-pip graphviz
+RUN pip install dot2tex
+RUN tlmgr install xkeyval
+RUN tlmgr install moreverb
 
 # Keep env while using sudo inside the docker
 RUN sed -i /secure_path/d /etc/sudoers
