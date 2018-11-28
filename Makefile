@@ -4,8 +4,9 @@ FLAGS=--no-cache --network host
 FLAGS=--network host
 TAG=inria-1.2.1
 
-TARGETS=web
-RELEASES=base-r web-r clsi_worker-r
+TARGETS=web real-time document-updater clsi track-changes filestore docstore chat tags spelling contacts notifications
+RELEASES=base-r web-r clsi_worker-r real-time-r document-updater-r clsi-r track-changes-r filestore-r docstore-r chat-r tags-r spelling-r contacts-r notifications-r
+
 
 all: $(TARGETS)
 
