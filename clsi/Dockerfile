@@ -27,3 +27,11 @@ RUN add-apt-repository \
 
 RUN apt-get update
 RUN apt-get install -y docker-ce-cli
+
+# Removing the entry point
+# The clsi communicates with the host daemon using the docker sock
+# The dynamic user created at container startup must thus be added also in the docker group
+# (which doesn't exist in the clsi container)
+# Risk are mitigated by the fact that compilation container are then using a
+# user without priviledge
+ENTRYPOINT []

@@ -2,6 +2,13 @@ FROM debian:stretch
 # FROM https://github.com/sharelatex/sharelatex-docker-image/blob/master/Dockerfile-base
 LABEL maintainer="matthieu.simonin@inria.fr"
 
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y gosu; \
+	rm -rf /var/lib/apt/lists/*; \
+# verify that the binary works
+	gosu nobody true
+
 RUN apt-get update
 RUN apt-get install -y\
     build-essential\
@@ -39,3 +46,10 @@ RUN npm install
 # default config file
 RUN mkdir -p /etc/sharelatex
 ADD settings.coffee /etc/sharelatex/settings.coffee
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod u+x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+
