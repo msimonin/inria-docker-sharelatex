@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 MAINTAINER Matthieu Simonin <matthieu.simonin@inria.fr>
 
@@ -29,8 +29,10 @@ RUN rm -r /install-tl-unx; \
 
 
 # The path will persist.
-ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/texlive/2016/bin/x86_64-linux/
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/texlive/2018/bin/x86_64-linux/
 RUN tlmgr install latexmk
+RUN tlmgr install texcount
+RUN tlmgr install chktex
 
 # Install Aspell
 RUN apt-get install -y aspell aspell-en aspell-fr aspell-es
