@@ -50,6 +50,10 @@ ADD settings.coffee /etc/sharelatex/settings.coffee
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod u+x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Add sharelatex user
+RUN groupadd sharelatex -g 15000
+RUN useradd --shell /bin/bash -u 15000 -g 15000 -o -c "" -m sharelatex
+RUN chown sharelatex:sharelatex -R /opt/sharelatex || true
+RUN sync
 
-
+USER sharelatex

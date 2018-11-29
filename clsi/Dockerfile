@@ -12,6 +12,7 @@ RUN npm install
 RUN grunt install
 RUN grunt compile:bin
 
+USER root
 # from https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository
 RUN apt-get install -y\
      apt-transport-https \
@@ -34,4 +35,3 @@ RUN apt-get install -y docker-ce-cli
 # (which doesn't exist in the clsi container)
 # Risk are mitigated by the fact that compilation container are then using a
 # user without priviledge
-ENTRYPOINT []
